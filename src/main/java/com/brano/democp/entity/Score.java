@@ -1,12 +1,12 @@
 package com.brano.democp.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 
@@ -21,7 +21,6 @@ public class Score {
     @GeneratedValue
     private Integer scoreId;
 
-    @Size(min = 0, max = 100)
     @Column(nullable = false)
     private Integer score;
 

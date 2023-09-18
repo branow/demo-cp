@@ -2,7 +2,7 @@ package com.brano.democp.service.impl;
 
 import com.brano.democp.entity.auxilary.TextFormat;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
 
 public class TextFormatConverter implements AttributeConverter<TextFormat, String> {
     @Override

@@ -1,8 +1,10 @@
 package com.brano.democp.table;
 
+import com.brano.democp.entity.User;
 import com.brano.democp.entity.VerificationToken;
 import com.brano.democp.repository.UserRepository;
 import com.brano.democp.repository.VerificationTokenRepository;
+import com.brano.democp.service.VerificationTokenService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,14 +15,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.brano.democp.table.EntityFactory.verificationToken;
-import static com.brano.democp.table.EntityFactory.verificationTokenWithUser;
+import static com.brano.democp.table.EntityFactory.*;
 
 @SpringBootTest
 public class VerificationTokenTableTest extends TableTest<VerificationToken, Long> {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private VerificationTokenService verificationTokenService;
+
     private final List<Long> toDeleteUsers = new ArrayList<>();
 
     @Autowired
@@ -37,12 +41,20 @@ public class VerificationTokenTableTest extends TableTest<VerificationToken, Lon
         toDeleteUsers.clear();
     }
 
+    @Override
+    VerificationToken save(VerificationToken verificationToken) {
+        VerificationToken saved = super.save(verificationToken);
+        toDeleteUsers.add(saved.getUserId());
+        return saved;
+    }
+
     @Test
     void userMustNotBeDeletedWithTokenDeleting() {
         VerificationToken saved = save(verificationTokenWithUser());
         repository.deleteById(saved.getUserId());
         toDelete.remove(saved.getUserId());
         Assertions.assertTrue(userRepository.existsById(saved.getUserId()));
+        Assertions.assertFalse(repository.existsById(saved.getUserId()));
     }
 
     @Test
@@ -51,6 +63,7 @@ public class VerificationTokenTableTest extends TableTest<VerificationToken, Lon
         userRepository.deleteById(saved.getUserId());
         toDeleteUsers.remove(saved.getUserId());
         Assertions.assertFalse(repository.existsById(saved.getUserId()));
+        Assertions.assertFalse(userRepository.existsById(saved.getUserId()));
     }
 
     @Test
@@ -84,12 +97,7 @@ public class VerificationTokenTableTest extends TableTest<VerificationToken, Lon
     }
 
 
-    @Override
-    VerificationToken save(VerificationToken verificationToken) {
-        VerificationToken saved = super.save(verificationToken);
-        toDeleteUsers.add(saved.getUserId());
-        return saved;
-    }
+
 
 
 //    @Test

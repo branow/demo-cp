@@ -11,4 +11,6 @@ public interface VerificationTokenService {
     VerificationToken findByToken(String token);
 
     void delete(VerificationToken token);
+
+    void deleteById(Long id);
 }

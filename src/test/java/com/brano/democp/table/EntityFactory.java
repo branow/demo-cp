@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class EntityFactory {
 
+
     public static Image image() {
         Random random = new Random(identifier());
         int size = random.nextInt(0, 10_000);

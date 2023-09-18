@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class EnterController {
@@ -43,6 +43,7 @@ public class EnterController {
     public String confirmRegistration(@RequestParam("token") String token) {
         try {
             User user = userService.enableUser(token);
+            verificationTokenService.deleteById(user.getUserId());
             return "user (" + user.getUserName() + ") was enabled";
         } catch (ExpirationTimeException e) {
             return e.getMessage();

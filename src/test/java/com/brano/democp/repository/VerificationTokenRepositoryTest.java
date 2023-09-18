@@ -16,4 +16,9 @@ class VerificationTokenRepositoryTest {
     @Autowired
     private TestEntityManager manager;
 
+
+    void deleteById() {
+
+    }
+
 }

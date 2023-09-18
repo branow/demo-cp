@@ -39,4 +39,9 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
         verificationTokenRepository.delete(token);
     }
 
+
+    @Override
+    public void deleteById(Long tokenId) {
+        verificationTokenRepository.deleteById(tokenId);
+    }
 }
