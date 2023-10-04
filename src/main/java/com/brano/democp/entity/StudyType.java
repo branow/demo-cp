@@ -17,7 +17,7 @@ import jakarta.persistence.*;
 public class StudyType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studyTypeId;
 
     @Column(length = 100, unique = true, nullable = false)

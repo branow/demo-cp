@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class Audio {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long audioId;
 
     @Column(columnDefinition = "mediumblob not null")

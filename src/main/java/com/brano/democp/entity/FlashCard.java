@@ -22,7 +22,7 @@ import java.util.Map;
 public class FlashCard {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flashCardId;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -33,14 +33,8 @@ public class FlashCard {
     @JoinColumn(name = "back_side", referencedColumnName = "formattedTextId", foreignKey = @ForeignKey(name = "fk_flashcard_bs_formatted_text"))
     private FormattedText backSide;
 
-    @Column(nullable = false)
-    private Long collection;
-
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "flash_card",
-            referencedColumnName = "flashCardId"
-    )
+    @JoinColumn(name = "flash_card", referencedColumnName = "flashCardId", foreignKey = @ForeignKey(name = "fk_score_flash_card"))
     private List<Score> scores;
 
     @Transient
@@ -51,6 +45,7 @@ public class FlashCard {
     private void calcAggregateScores() {//????????????????????????????
         ApplicationContext context = new AnnotationConfigApplicationContext(ServiceBeans.class);
         ScoreAggregator scoreAggregator = context.getBean(ScoreAggregator.class);
+        aggregateScores = scoreAggregator.aggregate(scores);
     }
 
 }

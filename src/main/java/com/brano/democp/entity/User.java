@@ -19,7 +19,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     @NotEmpty
@@ -45,7 +45,5 @@ public class User {
     private List<Module> modules;
 
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private VerificationToken verificationToken;
 
 }

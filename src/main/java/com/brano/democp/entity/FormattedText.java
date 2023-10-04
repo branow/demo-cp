@@ -18,7 +18,7 @@ import jakarta.validation.constraints.Size;
 public class FormattedText {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long formattedTextId;
 
     @Size(max = 2000)
@@ -30,11 +30,11 @@ public class FormattedText {
     @Convert(converter = TextFormatConverter.class)
     private TextFormat format;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "image", referencedColumnName = "imageId", foreignKey = @ForeignKey(name = "fk_formatted_text_image"))
     private Image image;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "audio", referencedColumnName = "audioId", foreignKey = @ForeignKey(name = "fk_formatted_text_audio"))
     private Audio audio;
 

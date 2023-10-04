@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 public class Image {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
 
     @Column(columnDefinition = "mediumblob not null")

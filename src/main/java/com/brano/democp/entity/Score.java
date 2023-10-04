@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Score {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer scoreId;
 
     @Column(nullable = false)

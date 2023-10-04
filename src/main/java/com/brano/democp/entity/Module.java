@@ -17,7 +17,7 @@ import java.util.List;
 public class Module {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long moduleId;
 
     @Column(length = 100, nullable = false)
@@ -26,13 +26,9 @@ public class Module {
     @Column(length = 1000)
     private String description;
 
-    @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "access_type", referencedColumnName = "accessTypeId", foreignKey = @ForeignKey(name = "fk_module_access_type"))
+    @ManyToOne()
+    @JoinColumn(nullable = false, name = "access_type", referencedColumnName = "accessTypeId", foreignKey = @ForeignKey(name = "fk_module_access_type"))
     private AccessType accessType;
-
-    @Column(nullable = false)
-    private Long user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "module", referencedColumnName = "moduleId", foreignKey = @ForeignKey(name = "fk_collection_module"))

@@ -16,7 +16,7 @@ import jakarta.persistence.*;
 public class AccessType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accessTypeId;
 
     @Column(length = 100, unique = true, nullable = false)

@@ -16,14 +16,11 @@ import java.util.List;
 public class Collection {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long collectionId;
 
     @Column(length = 100, nullable = false)
     private String collectionName;
-
-    @Column(nullable = false)
-    private Long module;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "collection", referencedColumnName = "collectionID", foreignKey = @ForeignKey(name = "fk_flashcard_collection"))
